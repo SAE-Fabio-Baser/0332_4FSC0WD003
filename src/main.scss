@@ -1,0 +1,25 @@
+$primaryColor: gray;
+
+body {
+  background: $primaryColor;
+}
+
+h2 {
+  color: red;
+
+  span {
+    color: blue;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  cursor: pointer;
+
+  &.done {
+    text-decoration: line-through;
+  }
+}

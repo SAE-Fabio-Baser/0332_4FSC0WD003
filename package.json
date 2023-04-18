@@ -1,0 +1,14 @@
+{
+    "name": "4fsc0wd003",
+    "version": "1.0.0",
+    "dependencies": {
+        "lodash": "^4.17.21",
+        "sass": "^1.62.0",
+        "vite": "^4.2.2"
+    },
+    "scripts": {
+        "hi": "echo hi",
+        "dev": "vite",
+        "build": "vite build"
+    }
+}
