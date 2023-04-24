@@ -1,53 +1,48 @@
-import createElement from "./createElement";
+const formElement = document.querySelector("form");
+const inputElements = document.querySelectorAll("input");
 
-const todoList = document.querySelector("#todosList");
-const addTodoBtn = document.querySelector("#addBtn");
-const newTodoInput = document.querySelector("#newTodoInput");
+const validators = {
+    notEmpty: (value) => value.length > 0,
+    zipCode: (value) => value.match(/^[0-9]{5}$/),
+    email: (value) =>
+        value.match(
+            /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+        ),
+};
 
-function getSavedTodos() {
-    const todoString = sessionStorage.getItem("todos");
-    return JSON.parse(todoString);
-}
+formElement.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-const todos = getSavedTodos() || [
-    { text: "Wäsche waschen", done: false },
-    { text: "Einkaufen", done: true },
-    { text: "Steurn machen", done: false },
-];
-
-renderTodos();
-
-function renderTodos() {
-    todoList.innerHTML = "";
-    todos.forEach(createTodoElement);
-    sessionStorage.setItem("todos", JSON.stringify(todos));
-}
-
-function createTodoElement(todo) {
-    const li = createElement("li");
-    const checkAttributes = { type: "checkbox" };
-    const check = createElement("input", checkAttributes);
-    check.checked = todo.done;
-
-    check.addEventListener("change", (event) => {
-        todo.done = event.target.checked;
-        renderTodos();
+    let isFormValid = true;
+    inputElements.forEach((element) => {
+        if (!validateElement(element)) {
+            isFormValid = false;
+        }
     });
 
-    li.prepend(check);
-    li.append(todo.text);
-
-    todoList.append(li);
-}
-
-addTodoBtn.addEventListener("click", () => {
-    todos.push({ text: newTodoInput.value, done: false });
-    renderTodos();
+    if (isFormValid) {
+        // submit your valid form here
+        console.log("Form is valid");
+    }
 });
 
-newTodoInput.addEventListener("keypress", ({ key }) => {
-    if (key === "Enter") {
-        todos.push({ text: newTodoInput.value, done: false });
-        renderTodos();
+function validateElement(element) {
+    const validatorName = element.dataset.validate || "";
+    if (validatorName === "") return true;
+
+    const validatorFunction = validators[validatorName];
+    const isValid = validatorFunction(element.value);
+    const errorElement = document.querySelector(`.error[name=${element.id}]`);
+
+    if (isValid) {
+        errorElement.classList.add("hidden");
+    } else {
+        errorElement.classList.remove("hidden");
     }
+
+    return isValid;
+}
+
+inputElements.forEach((element) => {
+    element.addEventListener("focusout", () => validateElement(element));
 });

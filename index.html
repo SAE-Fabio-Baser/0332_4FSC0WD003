@@ -11,14 +11,58 @@
 
 <body>
     <h1>Hallo SAE!</h1>
-    <div>
-        <h1>To-Dos</h1>
+    <form>
         <div>
-            <input id="newTodoInput" placeholder="New Todos" />
-            <button id="addBtn">+ Add</button>
+            <label for="firstName">Vorname</label>
+            <select id="firstName">
+                <option value="male">Herr</option>
+                <option value="female">Frau</option>
+            </select>
         </div>
-        <ul id="todosList"></ul>
-    </div>
+        <div>
+            <label for="firstName">Vorname</label>
+            <input type="text" id="firstName" placeholder="Steve" data-validate="notEmpty" />
+            <span class="error hidden" name="firstName">
+                Vorname muss eingetragen sein
+            </span>
+        </div>
+        <div>
+            <label for="lastName">Nachname</label>
+            <input type="text" id="lastName" placeholder="Jobs" data-validate="notEmpty" />
+            <span class="error hidden" name="lastName">
+                Nachname muss eingetragen sein
+            </span>
+        </div>
+        <div>
+            <label for="address">Adresse</label>
+            <input type="text" id="address" placeholder="Lange Reihe" data-validate="notEmpty" />
+            <span class="error hidden" name="address">
+                Addresse muss eingetragen sein
+            </span>
+        </div>
+        <div>
+            <label for="zip">Postleitzahl</label>
+            <input type="text" id="zip" placeholder="22391" data-validate="zipCode" />
+            <span class="error hidden" name="zip">
+                Muss valide Postleitzahl sein
+            </span>
+        </div>
+        <div>
+            <label for="state">Ort</label>
+            <input type="text" id="state" placeholder="Hamburg" data-validate="notEmpty" />
+            <span class="error hidden" name="state"> Darf nicht leer sein </span>
+        </div>
+        <div>
+            <label for="email">E-Mail</label>
+            <input type="text" id="email" placeholder="s.jobs@bing.com" data-validate="email" />
+            <span class="error hidden" name="email"> Muss valide E-Mail sein </span>
+        </div>
+        <div>
+            <label for="reason">Grund</label>
+            <textarea id="reason" placeholder="Mir war langweilig"></textarea>
+        </div>
+        <button type="submit">Abschicken</button>
+    </form>
 </body>
 
 </html>
